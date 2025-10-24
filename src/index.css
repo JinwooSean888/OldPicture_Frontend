@@ -1,13 +1,49 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.App {
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: flex-start; /* 세로는 위쪽부터 시작 */
+  min-height: 100vh;
+  background-color: white;
+  font-family: "Pretendard", sans-serif;
+  padding-top: 50px; /* 중간 위쪽 위치 조정 */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.MainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.MainTitle {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.SubTitle {
+  font-size: 20px;
+  color: #555;
+  margin: 0;
+}
+
+.ViewAllButton {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #888888;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ViewAllButton:hover {
+  background-color: #686868;
+}
+
+.MainGif {
+  width: 80%; /* 화면 가로 80% */
+  max-width: 800px; /* 최대 크기 제한 */
+  margin-top: 30px;
+  border-radius: 10px;
 }

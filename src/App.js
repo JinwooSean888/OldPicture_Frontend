@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="MainContent">
+        <h1 className="MainTitle">AI 추억 변환기</h1>
+        <p className="SubTitle">흑백 사진을 컬러와 2D로 다시 살아나게</p>
+        <button className="ViewAllButton">모든 기능 보기</button>
+      </div>
     </div>
   );
 }
