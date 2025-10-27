@@ -1,7 +1,8 @@
+// index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./App"; // 방금 만든 App.jsx
 import "./index.css";
-import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,15 +1,25 @@
-import React from "react";
-import "./App.css";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// import Header from "./components/Header";
+// import Footer from "./components/Footer";
+import FunctionPage from "./FunctionPage";
+import SecPage from "./SecPage";
+import testPage from "./testPage";
+import "./App.css";
 function App() {
   return (
-    <div className="App">
-      <div className="MainContent">
-        <h1 className="MainTitle">AI 추억 변환기</h1>
-        <p className="SubTitle">흑백 사진을 컬러와 2D로 다시 살아나게</p>
-        <button className="ViewAllButton">모든 기능 보기</button>
-      </div>
-    </div>
+    <>
+      {/* <Header userInfo={userInfo} setUserInfo={setUserInfo} /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<FunctionPage />} />
+          <Route path="/aaa" element={<testPage />} />
+          <Route path="/bbb" element={<SecPage />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <Footer /> */}
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 */
-  align-items: flex-start; /* 세로는 위쪽부터 시작 */
+  justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
   background-color: white;
   font-family: "Pretendard", sans-serif;
-  padding-top: 50px; /* 중간 위쪽 위치 조정 */
+  padding-top: 50px;
 }
 
 .MainContent {
@@ -42,8 +42,7 @@
 }
 
 .MainGif {
-  width: 80%; /* 화면 가로 80% */
-  max-width: 800px; /* 최대 크기 제한 */
-  margin-top: 30px;
+  width: 80%;
+  max-width: 800px;
   border-radius: 10px;
 }

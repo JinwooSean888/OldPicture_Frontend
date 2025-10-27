@@ -1,11 +1,11 @@
 .App {
   display: flex;
-  justify-content: center; /* 가로 중앙 */
-  align-items: flex-start; /* 세로 위쪽 정렬 */
+  justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
   font-family: "Pretendard", sans-serif;
   background-color: white;
-  padding-top: 100px; /* 기존 50px → 100px으로 늘림 */
+  padding-top: 100px;
 }
 
 .MainContent {
