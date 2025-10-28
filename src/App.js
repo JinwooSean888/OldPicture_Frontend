@@ -1,20 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./MainPage";
-import FunctionPage from "./FunctionPage";
-import SecPage from "./SecPage";
-import testPage from "./testPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import EditPage from "./pages/EditPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/function" element={<FunctionPage />} />
-        <Route path="/aaa" element={<testPage />} />
-        <Route path="/bbb" element={<SecPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/edit" element={<EditPage />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
