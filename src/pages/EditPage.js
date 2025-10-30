@@ -1,3 +1,5 @@
+// src/pages/EditPage.js
+
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./EditPage.css";
@@ -7,125 +9,132 @@ function EditPage() {
   const navigate = useNavigate();
 
   const image = location.state?.image;
-  const originalFile = location.state?.file;
+  const file = location.state?.file;
 
-  const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
   const [resultImage, setResultImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [isOriginal, setIsOriginal] = useState(true);
+  const [doneMessage, setDoneMessage] = useState(false); // ✅ 메시지 상태 추가
 
-  if (!image || !originalFile) {
+  if (!image) {
     return (
-      <div style={{ padding: 40 }}>
-        <h2>이미지가 없습니다.</h2>
-        <button onClick={() => navigate("/")}>홈으로 돌아가기</button>
+      <div className="edit-wrapper">
+        <h2 className="edit-title">업로드된 이미지가 없습니다.</h2>
+        <button className="back-btn" onClick={() => navigate("/")}>
+          ← 홈으로 돌아가기
+        </button>
       </div>
     );
   }
 
-  async function runWatercolorAPI(file) {
-    const form = new FormData();
-
-    form.append("file", file);
-    form.append("strength", 0.55);
-    form.append("cfg", 7.0);
-    form.append("steps", 22);
-    form.append("controlnet", "canny");
-    form.append("paper_texture", 0.25);
-    form.append("bleed", 3);
-
-    const res = await fetch("http://127.0.0.1:8000/api/watercolor", {
-      method: "POST",
-      body: form,
-    });
-
-    if (!res.ok) throw new Error("API 요청 실패");
-
-    const data = await res.json();
-    return data.result_url;
-  }
-
-  const handleAiProcess = async () => {
-    setLoading(true);
-    setDone(false);
-
-    try {
-      const resultUrl = await runWatercolorAPI(originalFile);
-      setResultImage("http://127.0.0.1:8000" + resultUrl);
-      setDone(true);
-    } catch (err) {
-      console.error(err);
-      alert("AI 처리 중 오류 발생!");
+  const runProcess = () => {
+    if (!selected) {
+      alert("먼저 기능을 선택해주세요!");
+      return;
     }
 
-    setLoading(false);
+    setLoading(true);
+
+    setTimeout(() => {
+      if (selected === "color") {
+        setResultImage(process.env.PUBLIC_URL + "/images/test_color.png");
+      } else {
+        setResultImage(process.env.PUBLIC_URL + "/images/test_water.png");
+      }
+
+      setLoading(false);
+      setIsOriginal(false);
+
+      // ✅ 완료 메시지 2.5초만 표시
+      setDoneMessage(true);
+      setTimeout(() => setDoneMessage(false), 2500);
+    }, 1500);
+  };
+
+  const downloadImage = () => {
+    const link = document.createElement("a");
+    link.href = resultImage;
+    link.download = "restored_photo.png";
+    link.click();
   };
 
   return (
-    <div className="edit-container">
-      <div className="edit-header">
-        <button
-          className="back-btn"
-          onClick={() => navigate("/?goUpload=true")}
-        >
-          ← 다른 사진 선택
-        </button>
-        <h2>업로드된 사진</h2>
-      </div>
+    <div className="edit-wrapper">
+      <h2 className="edit-title">사진 복원하기</h2>
 
-      <div className="edit-content">
-        <div className="edit-image-box">
-          <img
-            src={resultImage || image}
-            alt="edit-preview"
-            className="edit-image"
-          />
+      <div className="edit-card">
+        {/* ✅ 복원 완료 메시지 (2.5초 후 사라짐) */}
+        {doneMessage && (
+          <div className="complete-message">✅ 복원이 완료되었습니다</div>
+        )}
 
-          {done && (
-            <div className="done-message">✅ 복원이 완료되었습니다!</div>
-          )}
-        </div>
-
-        <div className="edit-panel">
-          <h3>편집 도구</h3>
-
-          <div className="edit-buttons">
-            <button className="tool-btn">흑백 → 컬러</button>
-            <button className="tool-btn">2D 변환</button>
-            <button className="tool-btn">수채화 스타일</button>
-            <button className="tool-btn">노이즈 제거</button>
-          </div>
-
-          <button
-            className="ai-btn"
-            disabled={loading}
-            onClick={handleAiProcess}
-          >
-            {loading ? "처리중..." : "AI 복원하기"}
-          </button>
-
-          {loading && (
-            <div className="loading-box">
-              <div className="spinner"></div>
-              <p>AI 복원 중...</p>
-            </div>
-          )}
-
-          <div className="panel-bottom">
-            <button className="reset-btn" onClick={() => setResultImage(null)}>
-              초기화
+        {/* ✅ 복원 후에만 Before / After 버튼 표시 */}
+        {resultImage && !loading && (
+          <div className="toggle-group">
+            <button
+              className={`toggle-btn ${isOriginal ? "active" : ""}`}
+              onClick={() => setIsOriginal(true)}
+            >
+              원본 보기
             </button>
 
-            {resultImage && (
-              <a
-                href={resultImage}
-                download="restored.png"
-                className="download-btn"
-              >
-                다운로드
-              </a>
-            )}
+            <button
+              className={`toggle-btn ${!isOriginal ? "active" : ""}`}
+              onClick={() => setIsOriginal(false)}
+            >
+              복원 결과 보기
+            </button>
           </div>
+        )}
+
+        {/* ✅ 이미지 영역 */}
+        <div className="image-area">
+          {loading ? (
+            <div className="loading-box">
+              <div className="spinner"></div>
+              <p>AI가 이미지를 복원 중입니다...</p>
+            </div>
+          ) : (
+            <img
+              src={isOriginal ? image : resultImage || image}
+              alt="preview"
+              className="edit-image"
+            />
+          )}
         </div>
+
+        {/* ✅ 복원 전 → 기능 선택 + 복원하기 버튼 */}
+        {!resultImage && !loading && (
+          <>
+            <div className="option-group">
+              <button
+                className={`option-btn ${selected === "color" ? "active" : ""}`}
+                onClick={() => setSelected("color")}
+              >
+                AI 컬러 복원
+              </button>
+
+              <button
+                className={`option-btn ${selected === "water" ? "active" : ""}`}
+                onClick={() => setSelected("water")}
+              >
+                수채화 변환
+              </button>
+            </div>
+
+            <button className="run-btn" onClick={runProcess}>
+              복원하기
+            </button>
+          </>
+        )}
+
+        {/* ✅ 복원 후 → 다운로드 버튼 */}
+        {resultImage && !loading && (
+          <button className="run-btn" onClick={downloadImage}>
+            다운로드
+          </button>
+        )}
       </div>
     </div>
   );

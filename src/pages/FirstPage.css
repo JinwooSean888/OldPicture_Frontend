@@ -1,0 +1,209 @@
+/* 전체 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.first-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: #ebebeb;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+/* ✅ HERO SECTION */
+.hero {
+  position: relative;
+  height: 45vh;
+
+  background-image: url("../assets/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: flex-start;
+  padding: 80px 0 0 60px;
+  color: white;
+
+  filter: grayscale(100%);
+}
+
+/* ✅ 어두운 오버레이 */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.3)
+  );
+  backdrop-filter: blur(1.5px);
+  z-index: 1;
+}
+
+/* ✅ 아래쪽 배경과 자연스러운 연결 */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(230, 230, 230, 0) 0%,
+    rgba(230, 230, 230, 0.6) 55%,
+    rgba(230, 230, 230, 1) 100%
+  );
+
+  z-index: 1;
+}
+
+/* ✅ 모든 hero 글씨 오버레이 위로 */
+.hero * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ✅ 제목 (밑줄 제거됨) */
+.hero-left-text h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 14px;
+
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+
+  position: relative;
+}
+
+/* ✅ 설명 글씨 */
+.hero-left-text p {
+  font-size: 17px;
+  opacity: 0.92;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* ✅ 3단계 안내 카드 */
+.steps-section {
+  width: 100%;
+  max-width: 900px;
+  margin: -20px auto 50px;
+  padding: 25px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.step-item {
+  flex: 1;
+  transition: transform 0.25s ease;
+}
+
+.step-item:hover {
+  transform: translateY(-6px);
+}
+
+.step-icon {
+  font-size: 28px;
+  width: 55px;
+  height: 55px;
+  background: #eef2ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  transition: transform 0.25s ease;
+}
+
+.step-item:hover .step-icon {
+  transform: translateY(-5px);
+}
+
+.step-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.step-item p {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ✅ 업로드 영역 */
+.upload-section {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto 90px;
+  text-align: center;
+}
+
+/* ✅ 업로드 제목 위 라인 */
+.upload-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.upload-section h2::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 3px;
+  background: #cfcfcf;
+  border-radius: 2px;
+}
+
+/* ✅ 업로드 박스 */
+.upload-box {
+  width: 50%;
+  height: 160px;
+  margin: 0 auto;
+  border-radius: 14px;
+  background: #fafafa;
+  border: 2px dashed #b6b6b6;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #444;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.upload-box:hover {
+  background: #ffffff;
+  border-color: #535353;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.upload-arrow {
+  font-size: 28px;
+  margin-bottom: 10px;
+  transition: transform 0.25s ease;
+}
+
+.upload-box:hover .upload-arrow {
+  transform: translateY(-4px);
+}

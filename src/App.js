@@ -1,22 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import FirstPage from "./pages/FirstPage";
 import EditPage from "./pages/EditPage";
 
 function App() {
   return (
-    <>
+    <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<FirstPage />} />
         <Route path="/edit" element={<EditPage />} />
       </Routes>
-    </>
-  );
-}
-
-export default function AppWrapper() {
-  return (
-    <Router>
-      <App />
     </Router>
   );
 }
+
+export default App;
